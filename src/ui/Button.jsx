@@ -1,13 +1,13 @@
 import React, { memo } from "react";
-import { useLocation } from "react-router-dom";
 
-const Button = ({ onClick }) => {
-  const { pathname } = useLocation();
+const Button = ({ children, actions }) => {
+  const handeClick = () => {
+    alert(actions);
+  };
 
-  console.log(pathname)
   return (
-    <button className="mx-auto" onClick={() => onClick?.(pathname)}>
-      Button
+    <button onClick={() => handeClick()} className="mx-auto">
+      {children}
     </button>
   );
 };

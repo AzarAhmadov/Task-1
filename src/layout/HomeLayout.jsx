@@ -1,32 +1,32 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Header from "../common/Header";
 import Button from "../ui/Button";
-import { useDispatch } from "react-redux";
-import { getAbout, getContact, getGalary } from "../app/features/actions";
-
-const actionMap = {
-  "/about": getAbout,
-  "/contact": getContact,
-  "/galary": getGalary,
-};
+import { getMyActions } from "../app/features/actions";
 
 const HomeLayout = () => {
-  const dispatch = useDispatch();
+  const pages = getMyActions();
+  const { pathname } = useLocation();
 
-  const getActions = (pathname) => {
-    const action = actionMap[pathname];
-    if (action) {
-      dispatch(action());
-    }
-  };
+  const currentPage = pages.find((page) => page.pageName === pathname);
+
+  if (!currentPage) {
+    console.log("Bu sehifede movcud bir action yoxdur");
+  }
 
   return (
     <>
       <Header />
-      <div className="flex justify-center mx-auto container flex-col text-center gap-y-10">
+      <div className="container flex flex-col justify-center mx-auto text-center gap-y-10">
         <Outlet />
-        <Button onClick={getActions}>Execute Action</Button>
+
+        {currentPage ? (
+          currentPage.actions.map((item) => (
+            <Button actions={item}>{item}</Button>
+          ))
+        ) : (
+          <div>Bu sehifede movcud bir action yoxdur</div>
+        )}
       </div>
     </>
   );

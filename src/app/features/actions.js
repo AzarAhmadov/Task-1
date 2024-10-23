@@ -3,16 +3,16 @@ import { useSelector } from 'react-redux'
 
 const initialState = [
     {
-        pageName: 'about',
-        key: "getContact",
+        pageName: '/about',
+        actions: ['delete', 'edit']
     },
     {
-        pageName: 'contact',
-        key: "getContact",
+        pageName: '/contact',
+        actions: ['edit', 'view']
     },
     {
-        pageName: 'galary',
-        key: "getAbout",
+        pageName: '/galary',
+        actions: ['put']
     }
 ]
 
@@ -20,15 +20,6 @@ export const ActionSlice = createSlice({
     name: "actions",
     initialState,
     reducers: {
-        getAbout: () => {
-            alert('About')
-        },
-        getContact: () => {
-            alert('Contact')
-        },
-        getGalary: () => {
-            alert('Galary')
-        }
     }
 })
 
